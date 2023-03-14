@@ -1,5 +1,3 @@
-DELETE from heroes where 1=1;
-
 UPDATE heroes set "Level" = case "EQ level" when 11 then 70 when 12 then 80 when 13 then 90 end where COALESCE ("Level", '') = '';
 
 UPDATE heroes 
@@ -29,24 +27,3 @@ set "Power" =
  	when 13 then 1.085165303 * 1.085165303
  END * power(1.055205898, ("Level"-70)/10)
 where "Power" is null;
-
-
-select player, Hero  from heroes h
-group by Player, Hero 
-having count(*) > 1;
-
-select player, Hero  from 
-(
-select distinct h.* from heroes h 
-)
-group by Player, Hero 
-having count(*) > 1;
-
-create table heroes2 as select distinct h.* from heroes h;
-
-delete from heroes where 1=1;
-
-insert into heroes select * from heroes2;
-
-delete from heroes2 where 1=1;
-
